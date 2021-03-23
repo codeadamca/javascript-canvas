@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color: #000;
+            width: 600px;
+            height: 300px;
+            border: 3px solid red;
+        }
+        
+        </style>
+        
+    </head>
+	<body>
+
+		<h1>Buttons and the Canvas</h1>
+		
+		<canvas id="canvas" width="600" height="300"></canvas>
+
+		<section>
+			<button id="button1">Button One</button>
+			<button id="button2">Button Two</button>
+			<button id="button3">Button Three</button>
+		</section>
+		
+		<script>
+
+		// Create a reference to the three buttons
+		var button1 = document.getElementById("button1");
+		var button2 = document.getElementById("button2");
+		var button3 = document.getElementById("button3");
+		
+		// Get canvas element
+		var canvasElement = document.getElementById("canvas");
+
+		// It's not the HTML element itself that we need, it's the canvas environment, its 'context'.
+		var context = canvasElement.getContext("2d");
+		
+		// Now that we have a variable for the context, we can "draw" on it.	
+		context.fillStyle = "#336699";
+		context.fillRect(50, 50, 500, 200);
+		context.fill();
+		
+		// Move cursor to this x/y location on our canvas.
+		context.moveTo(0, 100); 
+
+		// Button click "listeners" to update the context of the canvas.
+		button1.onclick = function(){	
+
+			// Plot a line from the above point to the x/y location.
+			context.lineTo(200, 200);
+
+			// Draw the line
+			context.stroke();
+		}
+		
+		button2.onclick = function(){
+			context.lineTo(300, 150);
+			context.stroke();		
+		}
+		
+		button3.onclick = function(){
+			context.lineTo(150, 0);
+			context.stroke();		
+		}
+
+		</script>
+		
+	</body>
+</html>

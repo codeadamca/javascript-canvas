@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color: #000;
+            width: 600px;
+            height: 300px;
+            border: 3px solid red;
+        }
+        
+        </style>
+        
+    </head>
+    <body>
+    
+        <h1>Drawing and the Canvas</h1>
+        
+        <canvas id="canvas" width="600" height="300"></canvas>
+        
+        <script>
+        
+        // Initialize the canvas
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+                    
+        // Choose a colour and stroke
+        context.beginPath();
+        context.lineWidth = 5;
+        context.strokeStyle = "rgb(33,66,99)";
+            
+        // Draw a line
+        context.moveTo(0, 0);
+        context.lineTo(200, 100);
+        context.stroke();
+        
+        // Draw a circle
+        context.beginPath();
+        context.arc(200, 100, 40, 0, 2 * Math.PI);
+        context.stroke();
+            
+        // Add some text
+        context.font = "30px Arial";
+        context.fillStyle = "rgb(33,66,99)";
+        context.fillText("Hello World", 10, 200);
+            
+        // Load an image
+        var image = new Image();
+        image.onload = function() {
+            context.drawImage(image, 250, 50);
+        };
+        image.src = "sky.jpg";
+            
+        </script>
+    
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color: #000;
+            width: 600px;
+            height: 600px;
+            border: 3px solid red;
+        }
+        
+        </style>
+        
+    </head>
+    <body>
+
+        <h1>Animating Multiple Items</h1>
+        
+        <p>This code is going to animate multiple circles. </p>
+        
+        <canvas id="canvas" width="600" height="600"></canvas>
+        
+        <script>
+            
+        // This function generates a random number between the to and from
+        // parameters. 
+        function randomNumber(from,to)
+        {
+            var range = to - from;
+            var number = from + Math.floor(Math.random()*range);
+            
+            // This line makes sure the random number is not zero
+            if( number == 0 ) number = randomNumber(from,to);
+            
+            return number;
+        }
+        
+        // Create an array to store the information about each circle
+        var circles = new Array();
+        
+        // Loop 200 times and save a random, x, y, and speed into each item 
+        // in the array
+        for( var i = 0; i < 200; i ++ )
+        {
+            circles[i] = {
+                x:randomNumber(20,580),
+                y:randomNumber(20,580),
+                xSpeed: randomNumber(-2,2),
+                ySpeed: randomNumber(-2,2),
+            };
+        }
+    
+        // Setup the canvas
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // Setup the line style
+        context.lineWidth = 5;
+        context.strokeStyle = "rgb(33,66,99)";
+
+        // This function moves each circle based on it's speed and position
+        function frame()
+        {
+            
+            // Clear the previous frame
+            context.clearRect( 0, 0, 600, 600 );
+            
+            // Loop through each circle
+            for( var i = 0; i < 200; i ++ )
+            {
+
+                // Get the next circle to draw
+                var circle = circles[i];
+                
+                // Draw the circle in it's new position
+                context.beginPath();
+                context.arc(circles[i].x, circles[i].y, 20, 0, 2 * Math.PI);
+                context.stroke();
+                
+                // Increment the position of the circle
+                circles[i].x += circles[i].xSpeed;
+                circles[i].y += circles[i].ySpeed;
+                
+                // Check to make sure the circle has not left the stage
+                if( circles[i].x > 610 ) circles[i].x = -10;
+                else if( circles[i].x < -10 ) circles[i].x = 610;
+                if( circles[i].y > 610 ) circles[i].y = -10;
+                else if( circles[i].y < -10 ) circles[i].y = 610;
+            
+            }
+            
+            // Repeat the frame code when ready
+            window.requestAnimationFrame(frame);
+            
+        }
+        
+        // Initiate the first frame
+        frame();    
+        
+        
+        </script>
+        
+    </body>
+</html>

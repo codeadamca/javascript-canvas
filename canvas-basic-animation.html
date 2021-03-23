@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color: #000;
+            width: 600px;
+            height: 300px;
+            border: 3px solid red;
+        }
+        
+        </style>
+        
+    </head>
+    <body>
+    
+        <h1>JavaScript and the Canvas</h1>
+        
+        <canvas id="canvas" width="600" height="300"></canvas>
+        
+        <script>
+        
+        function frame(timestamp) {
+            
+            // Clear the previous drawing
+            context.clearRect(0,0,600,300);
+
+            // Draw a circle
+            context.beginPath();
+            context.lineWidth = 5;
+            context.strokeStyle = "rgb(33,66,99)";
+            context.beginPath();
+            context.arc(counter, 150, 20, 0, 2 * Math.PI);
+            context.stroke();
+       
+            // Modify the counter
+            counter ++;
+            if(counter > 620) counter = -20;
+            
+            // Reanimate again
+            window.requestAnimationFrame(frame);
+            
+        }
+
+        // Start the animation
+        window.requestAnimationFrame(frame);
+            
+        // Initialize the counter
+        var counter = -20;
+            
+        // Initialize the canvas
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+            
+        </script>
+    
+    </body>
+</html>

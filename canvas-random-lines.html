@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color: #000;
+            width: 600px;
+            height: 300px;
+            border: 3px solid red;
+        }
+        
+        </style>
+        
+    </head>
+    <body>
+    
+        <h1>The Canvas and Random Lines</h1>
+        
+        <canvas id="canvas" width="600" height="300"></canvas>
+        
+        <script>
+        
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+            
+        context.lineWidth = 5;
+        
+        for(var i = 0; i < 10; i++) {
+
+            context.beginPath();
+            context.strokeStyle = getRndColor();
+            
+            var sX = Math.random() * 600;
+            var sY = Math.random() * 300;
+            console.log("From: " + sX + "," + sY);
+            context.moveTo(sX, sY);
+
+            var eX = Math.random() * 600;
+            var eY = Math.random() * 300;
+            console.log("To: " + eX + "," + eY);
+            context.lineTo(eX, eY);
+
+            context.stroke();
+            
+        }
+        
+        function getRndColor() {
+            var r = 255*Math.random()|0,
+                g = 255*Math.random()|0,
+                b = 255*Math.random()|0;
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+            
+        </script>
+    
+    </body>
+</html>
