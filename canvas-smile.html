@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>JavaScript and the Canvas</title>        
+        <style>   
+
+		#canvas {
+			width: 400px;
+			height: 400px;
+			border: 3px solid red;
+		}     
+
+        </style>        
+    </head>
+    <body>
+    
+        <h1>JavaScript and the Canvas</h1>
+
+        <canvas id="canvas" width="400" height="400"></canvas>        
+        
+        <script>        
+
+		var canvas = document.getElementById("canvas");
+		context = canvas.getContext("2d");
+		
+		// Background rectangle
+		context.fillStyle = "navy";
+		context.fillRect(0, 0, 400, 400);
+		context.fill();
+		
+		// Yello circle
+		context.strokeStyle = "yellow";
+		context.fillStyle = "yellow";
+		context.lineWidth = 15;
+		context.beginPath();
+		context.arc(200, 175, 80, 0, 2 * Math.PI);
+		context.stroke();
+		context.fill();
+		
+		// Sun rays
+		context.beginPath();
+		context.moveTo(200, 20);
+		context.lineTo(200, 75);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(200, 275);
+		context.lineTo(200, 340);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(15, 175);
+		context.lineTo(90, 175);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(300, 175);
+		context.lineTo(390, 175);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(275, 115);
+		context.lineTo(310, 85);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(75, 280);
+		context.lineTo(120, 240);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(75, 75);
+		context.lineTo(120, 110);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(275, 250);
+		context.lineTo(320, 285);
+		context.stroke();
+		
+		// Sunglasses
+		context.strokeStyle = "black";
+		context.fillStyle = "black";
+		context.beginPath();
+		context.arc(160, 150, 30, 0, 1 * Math.PI);
+		context.stroke();
+		context.fill();
+		
+		context.strokeStyle = "black";
+		context.fillStyle = "black";
+		context.beginPath();
+		context.arc(235, 150, 30, 0, 1 * Math.PI);
+		context.stroke();
+		context.fill();
+		
+		// Text
+		context.font = "30px cursive";
+		context.fillStyle = "lightgreen";
+		context.fillText("Happy Spring!", 100,375);
+            
+        </script>
+    
+    </body>
+</html>
