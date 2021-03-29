@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>JavaScript and the Canvas</title>
+        
+        <style>
+        
+        #canvas {
+            background-color:lightblue;
+            width: 600px;
+            height: 600px;
+            border: 3px solid red;
+        }
+		#canvas:hover{
+            cursor: grab;
+        }
+		#canvas:active{
+            cursor: grabbing;
+        }
+
+        </style>
+        
+    </head>
+	<body>
+
+		<h1>Animation and the Canvas</h1>
+    
+		<h2>Do not tap on the glass.</h2>
+        
+        <canvas id="canvas" width="600" height="600"></canvas>
+        
+		<script>
+
+        var l2r = true;
+        var tailModifer = 0;
+        var bodyModifier = 65;            
+        var eyeModifier = 70;            
+
+
+        function frame(timestamp) {
+
+            // Clear the previous drawing (reset to blank canvas)
+            context.clearRect(0,0,600, 550);
+			
+			// Big Bubble
+            context.beginPath();
+            context.lineWidth = 3;
+            context.strokeStyle = "#81CECE";
+            context.arc(205, bubbleCounter, 15, 0, 2 * Math.PI);
+            context.stroke();
+			
+			// Little Bubble
+            context.beginPath();
+            context.lineWidth = 2;
+            context.strokeStyle = "#81CECE";
+            context.arc(250, bubbleCounter - 75, 8, 0, 2 * Math.PI);
+            context.stroke();
+			
+			// Big Fish
+            context.beginPath();
+            context.lineWidth = 2;
+            context.strokeStyle = "#e1b500";
+			context.fillStyle = "#ffcc00";
+            
+			// Tail
+            context.moveTo(bigFishCounter + tailModifer, 250);
+			context.lineTo(bigFishCounter + tailModifer, 300);
+			context.lineTo(bigFishCounter + bodyModifier, 275);
+			context.lineTo(bigFishCounter + tailModifer, 250);
+			context.stroke();
+			context.fill();
+
+			// Body
+			context.beginPath();
+			context.arc(bigFishCounter + bodyModifier, 275, 40, 0, 2 * Math.PI);
+			context.stroke();			
+			context.fill();
+
+			// Eye
+			context.beginPath();
+			context.fillStyle = "#000";
+			context.arc(bigFishCounter + eyeModifier, 265, 7, 0, 2 * Math.PI);
+			context.fill();
+       
+            // Update the bubbles
+            bubbleCounter--;
+            if(bubbleCounter < 0) {bubbleCounter = 525};
+            
+            // Back and forth logic for fish counter
+			if(bigFishCounter <450 && l2r === true) 
+            {
+                bigFishCounter++;
+            } 
+            else 
+            {
+                l2r = false;
+                tailModifer = 130;
+                eyeModifier = 50;
+            }
+			
+			// Right to left
+            if (l2r === false && bigFishCounter > 55) 
+            {
+                bigFishCounter--;
+            } 
+            else 
+            {
+                l2r = true;
+                tailModifer = 0;                
+                eyeModifier = 70;
+            }
+            
+            window.requestAnimationFrame(frame);
+        }
+
+        // Start the animation
+        window.requestAnimationFrame(frame);
+        
+        // Initialize the counters
+        var bubbleCounter = 380;
+        var bigFishCounter = 50;
+            
+        // Initialize the canvas and get its context
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+		
+		// Add click listener for warning text
+		canvas.onclick = function(){		
+			context.font = "30px Impact";
+			context.fillStyle = "rgb(255, 21, 0)";
+            context.textAlign = "center"
+			context.fillText("Hey! No tapping on the glass!", 300, 590);
+            console.log("here");
+		};
+            
+		</script>
+    </div>
+    </body>
+</html>
