@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript and the Canvas</title>
+
+    <style>
+
+    #canvas {
+        width: 600px;
+        height: 600px;
+        background-color: #000;
+    }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+
+    // Create a reference to the canvas
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    // Draw two rectangles
+    context.beginPath();
+    context.lineWidth = "3";
+    context.strokeStyle = "red";
+    context.rect(100, 100, 100, 100);
+    context.stroke();
+
+    context.fillStyle = "red";
+    context.fill();
+
+    context.beginPath();
+    context.lineWidth = "3";
+    context.strokeStyle = "green";
+    context.rect(300, 100, 100, 100);
+    context.stroke();
+
+    context.fillStyle = "green";
+    context.fill();
+    
+    // Add a click event listener
+    canvas.addEventListener("click", function(e){
+        
+        // Calculate the x and y position of the click
+        var rect = canvas.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        // console.log("Coordinate x: " + x, "Coordinate y: " + y);
+
+        // If the click is on the first box
+        if(x > 100 && x < 200 && y > 100 && y < 200)
+        {
+            console.log("Red box was clicked");
+        }
+
+        // If the click is on the second box
+        if(x > 300 && x < 400 && y > 100 && y < 200)
+        {
+            console.log("Green box was clicked");
+        }
+
+    });
+
+    </script>
+
+</body>
+</html>

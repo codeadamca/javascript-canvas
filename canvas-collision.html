@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript and the Canvas</title>
+
+    <style>
+
+    #canvas {
+        width: 600px;
+        height: 600px;
+        background-color: #000;
+        border: 3px solid red;
+    }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+
+    // Create a reference to the canvas
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    // Create two arrays to track two circle data
+    var circle1 = new Array();
+    circle1["x"] = Math.random() * 500 + 50;
+    circle1["y"] = Math.random() * 500 + 50;
+    circle1["velX"] = Math.random() * 10 - 5;
+    circle1["velY"] = Math.random() * 10 - 5;
+
+    var circle2 = new Array();
+    circle2["x"] = Math.random() * 500 + 50;
+    circle2["y"] = Math.random() * 500 + 50;
+    circle2["velX"] = Math.random() * 10 - 5;
+    circle2["velY"] = Math.random() * 10 - 5;
+
+    // Create a variable to track delay inbetween collisions
+    var collisionDelay = 0;
+
+    // Create a function to animate each frame
+    function frame(e)
+    {
+
+        // console.log(e);
+
+        // Clear the previous frame
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Move the first circle
+        circle1["x"] += circle1["velX"];
+        circle1["y"] += circle1["velY"];
+
+        if(circle1["x"] > 550 || circle1["x"] < 50)
+        {
+            circle1["velX"] *= -1;
+        }
+        if(circle1["y"] > 550 || circle1["y"] < 50)
+        {
+            circle1["velY"] *= -1;
+        }
+
+        // Draw the circle
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "red";
+
+        context.arc(circle1["x"], circle1["y"], 50, 0, 2 * Math.PI);
+
+        context.stroke();
+
+        context.fillStyle = "red";
+        context.fill();
+
+        // Move the first circle
+        circle2["x"] += circle2["velX"];
+        circle2["y"] += circle2["velY"];
+
+        if(circle2["x"] > 550 || circle2["x"] < 50)
+        {
+            circle2["velX"] *= -1;
+        }
+        if(circle2["y"] > 550 || circle2["y"] < 50)
+        {
+            circle2["velY"] *= -1;
+        }
+
+        // Draw the circle
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "red";
+
+        context.arc(circle2["x"], circle2["y"], 50, 0, 2 * Math.PI);
+
+        context.stroke();
+
+        context.fillStyle = "red";
+        context.fill();
+
+        // Draw a line between the two circles
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "green";
+
+        context.moveTo(circle1["x"], circle1["y"]);
+        context.lineTo(circle2["x"], circle2["y"]);
+
+        context.stroke();
+
+        // Calculate tvalues for collisions
+        var a = Math.abs(circle1["y"] - circle2["y"]);
+        var b = Math.abs(circle1["x"] - circle2["x"]);
+        var distance = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+        // If there is a collision
+        if(distance <= 100 && collisionDelay < 0)
+        {
+                        
+            // Collision detection take from:
+            // https://stackoverflow.com/questions/60727534
+            const x = circle1["x"] - circle2["x"];
+            const y = circle1["y"] - circle2["y"];  
+            const d = x * x + y * y;
+
+            const u1 = (circle1["velX"] * x + circle1["velY"] * y) / d;
+            const u2 = (x * circle1["velY"] - y * circle1["velX"]) / d;
+            const u3 = (circle2["velX"] * x + circle2["velY"] * y) / d;
+            const u4 = (x * circle2["velY"] - y * circle2["velX"]) / d;
+
+            circle1["velX"] = x * u1 - y * u4;
+            circle2["velY"] = y * u1 + x * u4;
+            circle1["velX"] = x * u3 - y * u2;
+            circle1["velY"] = y * u3 + x * u2; 
+
+            collisionDelay = 5;
+
+        }
+        else
+        {
+            collisionDelay --;
+        }
+
+        window.requestAnimationFrame(frame);
+
+    }
+
+    window.requestAnimationFrame(frame);
+
+    </script>
+
+</body>
+</html>
+
