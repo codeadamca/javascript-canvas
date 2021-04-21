@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript and the Canvas</title>
+
+    <style>
+
+    #canvas {
+        width: 600px;
+        height: 600px;
+        background-color: #000;
+        border: 3px solid red;
+    }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+
+    // Track which keys are pressed
+    // https://stackoverflow.com/questions/1828613
+    var pressedKeys = {};
+    window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
+    window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
+
+    // Create a reference to the canvas
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    // Create an array to track character data
+    var mario = new Array();
+    mario["x"] = 0;
+    mario["y"] = 300;
+
+    // Make a list of required images
+    var spriteUrls = [
+        "sprites/mario-run-1.png",
+        "sprites/mario-run-2.png",
+        "sprites/mario-run-3.png",
+        "sprites/mario-run-4.png",
+        "sprites/mario-stand.png",
+        "sprites/mario-jump.png",
+        "sprites/mario-crouch.png",
+        "sprites/background.png",
+        "sprites/background-complete.png"
+    ];
+    var sprites = [];
+    var preloadCounter = 0;
+    
+    // Preload the images
+    function preloadSprites()
+    {
+        sprites[preloadCounter] = new Image();
+        sprites[preloadCounter].onload = function(){
+
+            preloadCounter ++;
+
+            if(preloadCounter == spriteUrls.length)
+            {
+                window.requestAnimationFrame(frame);
+            }
+            else
+            {
+                preloadSprites();
+            }
+
+        };
+        console.log("Load: " + spriteUrls[preloadCounter]);
+        sprites[preloadCounter].src = spriteUrls[preloadCounter];
+    }
+
+    preloadSprites();
+
+    // Create a function to animate each frame
+    function frame()
+    {
+
+        // Clear the previous frame
+        context.clearRect(0, 0, 600, 600);
+
+        // Check if the arrow keys are pressed and change the character data
+        if(pressedKeys[37] == true)
+        {
+            mario["x"] += 3;
+        }
+        else if(pressedKeys[39] == true)
+        {
+            mario["x"] -= 3;
+        }
+
+        if(mario["x"] > 0)
+        {
+            mario["x"] = 0;
+        }
+        else if(mario["x"] < -1200)
+        {
+            mario["x"] = -1200;
+        }
+
+        // Draw the character and the background
+        context.drawImage(sprites[8], mario["x"], 120)
+        context.drawImage(sprites[4], 290, 267)       
+
+        setTimeout(function(){window.requestAnimationFrame(frame)}, 1000 / 45);
+
+    }
+
+    </script>
+
+</body>
+</html>
