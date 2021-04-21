@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript and the Canvas</title>
+
+    <style>
+
+    #canvas {
+        width: 600px;
+        height: 600px;
+        background-color: lightslategray;
+        border: 3px solid red;
+    }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+
+        // Track which keys are pressed
+        // https://stackoverflow.com/questions/1828613
+        var pressedKeys = {};
+        window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
+        window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
+
+        // Initialize the canvas
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        // Create an array to track the character data
+        var mario = [];
+        mario["x"] = 300;
+        mario["y"] = 300;
+        mario["velY"] = 0;
+
+        // Create a function to redraw each frame
+        function frame()
+        {
+
+            // Clear the previous frame
+            context.clearRect(0, 0, 600, 600);
+
+            // Detect if the space key is pressed
+            if(pressedKeys[32] == true)
+            {
+                mario["velY"] = -10;
+            }
+            
+            // Adjsut the character y position
+            mario["y"] += mario["velY"];
+            
+            // Check for character hitting the ground
+            if(mario["y"] < 300)
+            {
+                mario["velY"] += 1;
+            }
+            else
+            {
+                mario["velY"] = 0;
+                mario["y"] = 300;
+            }
+
+            // Draw the character
+            context.beginPath();
+            context.lineWidth = "3";
+            context.strokeStyle = "red";
+
+            context.rect(mario["x"] - 25, mario["y"] - 50, 50, 50);
+
+            context.stroke();
+            context.fillStyle = "red";
+            context.fill();
+            
+            setTimeout(function(){window.requestAnimationFrame(frame)}, 1000 / 45);
+
+        }
+
+        window.requestAnimationFrame(frame);
+
+    </script>
+
+</body>
+</html>
