@@ -1,30 +1,30 @@
 <!doctype html>
 <html>
-    <head>
-        
-        <title>JavaScript and the Canvas</title>
-        
-        <style>
-        
-        #canvas {
-            background-color: #000;
-            width: 600px;
-            height: 600px;
-            border: 3px solid red;
-        }
-        
-        </style>
-        
-    </head>
-    <body>
+<head>
+    
+    <title>JavaScript and the Canvas</title>
+    
+    <style>
+    
+    #canvas {
+        background-color: #000;
+        width: 600px;
+        height: 600px;
+        border: 3px solid red;
+    }
+    
+    </style>
+    
+</head>
+<body>
 
-        <h1>Animating Multiple Items</h1>
-        
-        <p>This code is going to animate multiple circles. </p>
-        
-        <canvas id="canvas" width="600" height="600"></canvas>
-        
-        <script>
+    <h1>Animating Multiple Items</h1>
+    
+    <p>This code is going to animate multiple circles. </p>
+    
+    <canvas id="canvas" width="600" height="600"></canvas>
+    
+    <script>
             
         // This function generates a random number between the to and from
         // parameters. 
@@ -53,7 +53,7 @@
                 ySpeed: randomNumber(-2,2),
             };
         }
-    
+
         // Setup the canvas
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
@@ -100,9 +100,8 @@
         
         // Initiate the first frame
         frame();    
-        
-        
-        </script>
-        
-    </body>
+    
+    </script>
+    
+</body>
 </html>

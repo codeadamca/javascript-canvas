@@ -1,41 +1,41 @@
 <!doctype html>
 <html>
-    <head>
-    
-        <title>Sizing the Canvas</title>
-        
-        <style>
-            
-        #canvas {
-            background-color: #000;
-            width: 600px;
-            height: 600px;
-            border: 3px solid red;
-        }
-        
-        </style>
-        
-    </head>
-    <body>
+<head>
 
-        <h1>Sizing the Canvas</h1>
+    <title>Sizing the Canvas</title>
+    
+    <style>
         
-        <p>When including a canvas into an HTML document you need to consider two sets 
-            of widths and heights. First, there is the width and height that was 
-            determined when saving the image from Photoshop or Illustrator. Second, you
-            determine the size the image will appear using styles.</p>
-        
-        <p>Likewise with a canvas, you have two sets of dimensions. First, are the 
-            width and height set in the canvas tag (or with JavaScript), these are like
-            the dimensions set in Photoshop. Second, you have the dimensions set in your styles, the actual visual size of the canvas.</p>
-        
-        <p>Just like an image, do not set your canvas to 200 by 200 pixels and
-            then display it 600 by 600 pixels, or it will appear blurry.</p>
-        
-        <canvas width="20" height="20" id="canvas"></canvas>
-        
-        <script>
-        
+    #canvas {
+        background-color: #000;
+        width: 600px;
+        height: 600px;
+        border: 3px solid red;
+    }
+    
+    </style>
+    
+</head>
+<body>
+
+    <h1>Sizing the Canvas</h1>
+    
+    <p>When including a canvas into an HTML document you need to consider two sets 
+        of widths and heights. First, there is the width and height that was 
+        determined when saving the image from Photoshop or Illustrator. Second, you
+        determine the size the image will appear using styles.</p>
+    
+    <p>Likewise with a canvas, you have two sets of dimensions. First, are the 
+        width and height set in the canvas tag (or with JavaScript), these are like
+        the dimensions set in Photoshop. Second, you have the dimensions set in your styles, the actual visual size of the canvas.</p>
+    
+    <p>Just like an image, do not set your canvas to 200 by 200 pixels and
+        then display it 600 by 600 pixels, or it will appear blurry.</p>
+    
+    <canvas width="20" height="20" id="canvas"></canvas>
+    
+    <script>
+    
         /*
         This is an example of a small canvas being stretched, notice 
         how blurry the line appears. 
@@ -54,8 +54,8 @@
         context.moveTo(0, 0);
         context.lineTo(600, 600);
         context.stroke();
-        
-        </script>
-        
-    </body>
+    
+    </script>
+    
+</body>
 </html>

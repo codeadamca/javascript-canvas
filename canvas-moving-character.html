@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>JavaScript and the Canvas</title>
+    
+    <style>
+    
+    #canvas {
+        background-color: #000;
+        width: 600px;
+        height: 600px;
+        border: 3px solid red;
+    }
+    
+    </style>
+    
+</head>
+<body>
+
+    <h1>JavaScript and the Canavs</h1>
+    
+    <canvas id="canvas" width="600" height="600"></canvas>
+    
+    <script>
+
+         // Track which keys are pressed
+        // https://stackoverflow.com/questions/1828613
+        var pressedKeys = {};
+        window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
+        window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
+
+        // Setup the canvas
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        // Create an array to track all character data
+        var character = new Array();
+        character.x = 100;
+        character.y = 100;
+
+        // Create a function to redraw each frame
+        function frame(e)
+        {
+
+            // Clear the previous frame
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Check for any arrow keys being pressed
+            if(pressedKeys[37] == true) character.x -= 3;
+            if(pressedKeys[39] == true) character.x += 3;
+            if(pressedKeys[38] == true) character.y -= 3;
+            if(pressedKeys[40] == true) character.y += 3;
+
+            // Draw the reactangle in the new position
+            context.beginPath();
+            context.rect(
+                character.x - 25,
+                character.y - 25,
+                50, 50);
+            context.stroke();
+            context.fillStyle = "red";
+            context.fill();
+
+            // Initiate the next frame
+            window.requestAnimationFrame(frame);
+
+        }
+
+        window.requestAnimationFrame(frame);
+
+    </script>
+
+</body>
+</html>

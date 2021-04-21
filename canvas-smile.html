@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
-	<head>
-        <title>JavaScript and the Canvas</title>        
-        <style>   
+<head>
 
-		#canvas {
-			width: 400px;
-			height: 400px;
-			border: 3px solid red;
-		}     
+	<title>JavaScript and the Canvas</title>        
 
-        </style>        
-    </head>
-    <body>
-    
-        <h1>JavaScript and the Canvas</h1>
+	<style>   
 
-        <canvas id="canvas" width="400" height="400"></canvas>        
-        
-        <script>        
+	#canvas {
+		width: 400px;
+		height: 400px;
+		border: 3px solid red;
+	}     
+
+	</style>        
+	
+</head>
+<body>
+
+	<h1>JavaScript and the Canvas</h1>
+
+	<canvas id="canvas" width="400" height="400"></canvas>        
+	
+	<script>        
 
 		var canvas = document.getElementById("canvas");
 		context = canvas.getContext("2d");
@@ -97,8 +100,8 @@
 		context.font = "30px cursive";
 		context.fillStyle = "lightgreen";
 		context.fillText("Happy Spring!", 100,375);
-            
-        </script>
-    
-    </body>
+		
+	</script>
+
+</body>
 </html>
