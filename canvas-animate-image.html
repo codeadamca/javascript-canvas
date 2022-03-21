@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Examples</title>
+
+    <style>
+      #canvas {
+        border: 3px solid red;
+        width: 600px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Canvas Examples</h1>
+
+    <canvas id="canvas" width="600" height="300"></canvas>
+
+    <script>
+
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      var yImage = -100;
+      var xImage = 275;
+
+      function frame(timestamp)
+      {
+
+        context.clearRect(0, 0, 600, 300);
+
+        context.drawImage(jslogo, xImage, yImage);
+
+        yImage ++;
+
+        if(yImage > 300)
+        {
+            yImage = -100;
+            xImage = Math.round(Math.random() * 500);
+        }
+
+        window.requestAnimationFrame(frame);
+        
+      }
+
+      var jslogo = new Image();
+      jslogo.onload = function() {
+        frame();
+      };
+      jslogo.src = "images/jslogo.jpg";
+
+    </script>
+
+   </body>
+</html>
