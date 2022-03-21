@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Examples</title>
+
+    <style>
+      #canvas {
+        border: 3px solid red;
+        width: 600px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Canvas Examples</h1>
+
+    <canvas id="canvas" width="600" height="300"></canvas>
+
+    <script>
+
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      var mouseStatus = false;
+
+      var xImage = 100;
+      var yImage = 100;
+
+      var xMouse = 0;
+      var yMouse = 0;
+
+      function frame(timestamp)
+      {
+
+        context.clearRect(0, 0, 600, 300);
+
+        if(mouseStatus == true)
+        {
+            xImage = xMouse - 50;
+            yImage = yMouse - 50;
+        }
+
+        context.drawImage(jslogo, xImage, yImage);
+
+        window.requestAnimationFrame(frame);
+        
+      }
+
+      var jslogo = new Image();
+      jslogo.onload = function() {
+        frame();
+      };
+      jslogo.src = "images/jslogo.jpg";
+
+      canvas.addEventListener('mousemove', function(event){
+        xMouse = event.clientX;
+        yMouse = event.clientY;
+
+        xMouse -= (canvas.offsetLeft - canvas.scrollLeft + canvas.clientLeft);
+        yMouse -= (canvas.offsetTop - canvas.scrollTop + canvas.clientTop);
+      });
+
+      canvas.addEventListener('mousedown', function(event){
+
+        if(xMouse > xImage && xMouse < xImage + 100 && 
+            yMouse > yImage && yMouse < yImage + 100)
+        {
+            mouseStatus = true;
+        }
+      });
+
+      canvas.addEventListener('mouseup', function(){
+        mouseStatus = false;
+      });
+
+    </script>
+
+   </body>
+</html>
