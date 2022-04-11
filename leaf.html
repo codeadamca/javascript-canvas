@@ -27,86 +27,82 @@
         // Setup the canvas
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
-        
     
+        canvas.width = document.body.clientWidth;
+        canvas.height = document.body.clientHeight;
 
-canvas.width = document.body.clientWidth;
-canvas.height = document.body.clientHeight;
+        let width = canvas.width;
+        let height = canvas.height;
+        let centerX = canvas.width / 2;
+        let centerY = canvas.height / 2;
+        let leafs = [];
+        let count = 10;
 
-let width = canvas.width;
-let height = canvas.height;
-let centerX = canvas.width / 2;
-let centerY = canvas.height / 2;
-let leafs = [];
-let count = 10;
+        for (let i = 0; i < count; i++) 
+        {
+          let angle = 15 + Math.random() * 45
+          let dir = [-1,1][Math.floor(Math.random() * 2)];
 
-for (let i = 0; i < count; i++) 
-{
-  let angle = 15 + Math.random() * 45
-  let dir = [-1,1][Math.floor(Math.random() * 2)];
-  
-  leafs.push({
-    x: Math.random() * (width + 150) - 75,
-    y: Math.random() * (height + 150) - 75,
-    v: 20 / angle,
-    a: angle,
-    d: dir
-  });
-}
+          leafs.push({
+            x: Math.random() * (width + 150) - 75,
+            y: Math.random() * (height + 150) - 75,
+            v: 20 / angle,
+            a: angle,
+            d: dir
+          });
+        }
 
-function update(dt) 
-{
-  for (let i = 0; i < leafs.length; i++) 
-  {
-      leafs[i].y += leafs[i].v;
+        function update(dt) 
+        {
+          for (let i = 0; i < leafs.length; i++) 
+          {
+            leafs[i].y += leafs[i].v;
+          
+            if (leafs[i].y > height) 
+            {
+              leafs[i].y = -75;
+              leafs[i].x = Math.random() * width;
+            }
+
+          }
+        }
+
+        function draw(dt) {
+          
+          update(dt);
+          
+          context.clearRect(0, 0, width, height);
+          
+          for (let i = 0; i < leafs.length; i++) 
+          {
+            context.save();
+            
+            context.translate(leafs[i].x, leafs[i].y);
+            
+            // Make the square flutter
+            // https://oktemplate.com/6554_canvas-autumn-leaves-falling-animation.html
+            context.rotate(
+              leafs[i].d * 
+              Math.sin(dt * 0.002 * i * 0.01) * 
+              (leafs[i].a) * 
+              Math.PI / 180
+            );
+
+            context.beginPath();
+            context.rect(0, 0, 50, 50);
+            context.fillStyle = 'red';
+            context.fill();
+            
+            context.restore();
+          }
+
+          requestAnimationFrame(draw);
+          
+        }
+
+        draw();
+
+    </script>
     
-      if (leafs[i].y > height) 
-      {
-        leafs[i].y = -75;
-        leafs[i].x = Math.random() * width;
-      }
-
-  }
-}
-
-function draw(dt) {
-  
-  update(dt);
-  
-  context.clearRect(0, 0, width, height);
-  
-  for (let i = 0; i < leafs.length; i++) 
-  {
-    context.save();
-    
-    context.translate(leafs[i].x, leafs[i].y);
-    
-    // Make the square flutter
-    // https://oktemplate.com/6554_canvas-autumn-leaves-falling-animation.html
-    context.rotate(
-      leafs[i].d * 
-      Math.sin(dt * 0.002 * i * 0.01) * 
-      (leafs[i].a) * 
-      Math.PI / 180
-    );
-
-    context.beginPath();
-    context.rect(0, 0, 50, 50);
-    context.fillStyle = 'red';
-    context.fill();
-    
-    context.restore();
-  }
-
-  requestAnimationFrame(draw);
-  
-}
-
-draw();
-
-
-
-</script>
-    
-    </body>
-    </html>
+</body>
+</html>
