@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Examples</title>
+
+    <style>
+      #canvas {
+        border: 3px solid red;
+        width: 600px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Canvas Examples</h1>
+
+    <canvas id="canvas" width="600" height="300"></canvas>
+
+    <button id="red">Red</button>
+    <button id="green">Green</button>
+    <button id="blue">Blue</button>
+
+    <script>
+
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      context.lineWidth = 5;
+      context.strokeStyle = "red";
+
+      var xPrevious = 0;
+      var yPrevious = 0;
+      var mouseStatus = false;
+
+      function frame(event)
+      {
+
+        var xMouse = event.clientX;
+        var yMouse = event.clientY;
+
+        // xMouse -= canvas.offsetLeft;
+        // yMouse -= canvas.offsetTop;
+
+        xMouse -= (canvas.offsetLeft - canvas.scrollLeft + canvas.clientLeft);
+        yMouse -= (canvas.offsetTop - canvas.scrollTop + canvas.clientTop);
+
+        if(mouseStatus == true)
+        {
+            context.beginPath();
+            context.moveTo(xPrevious, yPrevious);
+            context.lineTo(xMouse, yMouse);
+            context.stroke();
+        }
+
+        xPrevious = xMouse;
+        yPrevious = yMouse;
+
+      }
+
+      canvas.addEventListener('mousemove', frame, false);
+
+      canvas.addEventListener('mousedown', function(){
+        mouseStatus = true;
+      });
+
+      canvas.addEventListener('mouseup', function(){
+        mouseStatus = false;
+      });
+      canvas.addEventListener('mouseout', function(){
+        mouseStatus = false;
+      });
+
+      var red = document.getElementById('red');
+      red.addEventListener('click', function(){
+        context.strokeStyle = "red";
+      });
+      
+      var green = document.getElementById('green');
+      green.addEventListener('click', function(){
+        context.strokeStyle = "green";
+      });   
+
+      var blue = document.getElementById('blue');
+      blue.addEventListener('click', function(){
+        context.strokeStyle = "blue";
+      });   
+
+    </script>
+
+  </body>
+</html>
