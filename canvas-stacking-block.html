@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    
+    <title>JavaScript and the Canvas</title>
+    
+    <style>
+    
+    #canvas {
+        background-color: #000;
+        width: 600px;
+        height: 600px;
+        border: 3px solid red;
+    }
+    
+    </style>
+    
+</head>
+<body>
+
+    <h1>Stack Blocks</h1>
+    
+    <canvas id="canvas" width="600" height="600"></canvas>
+    
+    <script>
+        
+        // This function generates a random number between the to and from
+        // parameters. 
+        function randomNumber(from,to)
+        {
+            var range = to - from;
+            var number = from + Math.floor(Math.random()*range);
+            
+            // This line makes sure the random number is not zero
+            // if( number == 0 ) number = randomNumber(from,to);
+            
+            return number;
+        }
+
+        function getRndColor() {
+            var r = randomNumber(50,255),
+                g = randomNumber(50,255),
+                b = randomNumber(50,255);
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+
+        // Create an array to store the information about each circle
+        var blocks = new Array();
+
+        // Create a variable to track which block is being animated
+        var counter = 0;
+        
+        // Create a function to add a block
+        function newBlock()
+        {
+            if(counter > 100) return false;
+
+            // Random but in perfect columns
+            // x:randomNumber(0,11) * 50,
+
+            // Totally random
+            // x:randomNumber(0,550),
+
+            blocks[counter] = {
+                x:randomNumber(0,12) * 50,
+                y:-50,
+                color:getRndColor()
+            };
+            
+        }
+
+        newBlock();
+
+        function hitBlock()
+        {
+            for(var i = 0; i < blocks.length - 1; i ++)
+            {
+                if(
+                    blocks[counter].y + 50 >= blocks[i].y &&
+                    blocks[counter].x  < blocks[i].x + 50 &&
+                    blocks[counter].x + 50 > blocks[i].x
+                )
+                {
+                    return true;
+                }
+            }
+        }
+
+        // Setup the canvas
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // This function moves each circle based on it's speed and position
+        function frame()
+        {
+
+            context.clearRect(0,0,600,600);
+            
+            for(var i = 0; i < blocks.length; i ++)
+            {
+                context.beginPath();
+                context.rect(blocks[i].x, blocks[i].y, 50, 50);
+                context.fillStyle = blocks[i].color;
+                context.fill();
+
+                if(i == counter)
+                {
+                    if(blocks[i].y < 550 && !hitBlock())
+                    {
+                        blocks[i].y += 10;
+                    }
+                    else
+                    {
+                        counter ++;
+                        newBlock();
+                    }
+                }
+            
+            }
+
+            // Repeat the frame code when ready
+            window.requestAnimationFrame(frame);
+            
+        }
+        
+        // Initiate the first frame
+        frame();    
+    
+    </script>
+    
+</body>
+</html>
