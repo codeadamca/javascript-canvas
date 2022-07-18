@@ -1,4 +1,5 @@
-# javascript-canvas
+# A Basic Introduction to JavaScript and The Canvas
+
 This repository is a series of basic JavaScript and the HTML5 canvas element.
 
 - Sizing the Canvas - canvas-size.html
