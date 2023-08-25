@@ -11,9 +11,11 @@ This repository is a series of basic JavaScript and the HTML5 canvas element.
 - Reacting to a Click - canvas-click.html
 - Random Lines - canvas-random-lines.html
 
-## Tutorial Requirements:
+***
 
-* [Visual Studio Code](https://code.visualstudio.com/) or [Brackets](http://brackets.io/) (or any code editor)
+## Repo Resources
+
+* [Visual Studio Code](https://code.visualstudio.com/)
 
 <a href="https://codeadam.ca">
 <img src="https://codeadam.ca/images/code-block.png" width="100">
